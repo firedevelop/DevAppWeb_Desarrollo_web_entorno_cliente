@@ -98,7 +98,6 @@ buttonYA.addEventListener('click', () => {
 	let li = document.createElement('li');
 	li.textContent = resultadoPartida;
 	idHistorial.appendChild(li);
-	
 
 	idActual.textContent = ++partidasJugadas;
 });

@@ -21,7 +21,6 @@ let idActual = document.getElementById('actual');
 let idTotal = document.getElementById('total');
 let idHistorial = document.getElementById('historial');
 
-
 // MOSTRAR IMAGENES POR DEFECTO Y MARCAR LA SELECCIONADA
 imagesJugador.forEach((img, index) => { // recorre cada img junto con su índice (index 0, 1, 2)
 	img.src = `img/${posibilidades[index]}Jugador.png`; // nombre imagen + texto Jugador.png de la carpeta img
@@ -32,9 +31,8 @@ buttonJugar.addEventListener('click', () => {
 	nombreJugador = inputNombre.value.trim(); // elimina campos en blanco
 	totalPartidas = parseInt(inputPartidas.value); // convierte numero a integer. Ejemplo 3.3 = 3
 
-//  2.1.​ Introducción de usuario con datos no válidos.
+//  Validaciones. let genera valor boolean
 	let validacionNombre = nombreJugador.length > 3 && isNaN(nombreJugador.charAt(0)); // validamos que sea >3 caracteres y que el primer caracter charAt(0) NO sea un numero
-//	2.2.​ Introducción de cantidad de partidas con datos no válidos.	
 	let validacionPartidas = !isNaN(totalPartidas) && totalPartidas > 0; 
 
 	inputNombre.classList.toggle('fondoRojo', !validacionNombre); // cambia color rojo sino valida
@@ -48,13 +46,13 @@ buttonJugar.addEventListener('click', () => {
 });
 
 // AÑADIR UN EVENTO CLICK A CADA IMAGEN
-imagesJugador.forEach((img, index) => { 						// Recorre las imágenes para añadirle a cada una el evento del click, sin este forEach solo la primera tendria evento.
-	img.addEventListener('click', () => { 						
-		if (inputNombre.disabled && inputPartidas.disabled) { 	
+imagesJugador.forEach((img, index) => { 						// Recorre las 3 imágenes del jugador (piedra, papel, tijera) una por una para ponerles un evento.
+	img.addEventListener('click', () => { 						// Evento al hacer clic
+		if (inputNombre.disabled && inputPartidas.disabled) { 	// Solo permite elegir opción con inputs desactivados
 			seleccionPorDefecto = index; 						// Guarda la opción del Jugador 0=piedra, 1=papel, 2=tijera
 			imagesJugador.forEach((img2, i) => {				// Recorre nuevamente las 3 imágenes para actualizar su estado visual.
 				img2.className = (i === index) ? 'seleccionado' : 'noSeleccionado'; // aplica CSS
-					img2.src = `img/${posibilidades[i]}Jugador.png`;  // asegura imagenes correctas
+				img2.src = `img/${posibilidades[i]}Jugador.png`;  // asegura imagenes correctas
 			});
 		}
 	});
@@ -68,37 +66,24 @@ buttonYA.addEventListener('click', () => {
 	imageMaquina.src = `img/${posibilidades[seleccionMaquina]}Ordenador.png`;   // img/[1]Ordenador.png = img/papelOrdenador.png
 
 	let resultadoPartida = '';
-	let iconoJugador = '';
-	let iconoMaquina = '';
-	
-	switch (seleccionPorDefecto) {
-		case 0: iconoJugador = '🪨'; break; // Piedra
-		case 1: iconoJugador = '📄'; break; // Papel
-		case 2: iconoJugador = '✂️'; break; // Tijera
+    // Sólo hace falta mostrar las 3 combinaciones posibles en las que un Jugador ganaría
+    if (
+        (seleccionPorDefecto === 0 && seleccionMaquina === 2) || // piedra gana a tijera
+        (seleccionPorDefecto === 1 && seleccionMaquina === 0) || // papel gana a piedra
+        (seleccionPorDefecto === 2 && seleccionMaquina === 1)    // tijera gana a papel
+        ){
+            resultadoPartida = `😀 Gana ${nombreJugador}`;
+        }
+	else if (seleccionPorDefecto === seleccionMaquina) {
+		resultadoPartida = '🌀 Empate';
+	} 
+    else {
+		resultadoPartida = '🤖 Gana la máquina';
 	}
-	
-	switch (seleccionMaquina) {
-		case 0: iconoMaquina = '🪨'; break; // Piedra
-		case 1: iconoMaquina = '📄'; break; // Papel
-		case 2: iconoMaquina = '✂️'; break; // Tijera
-	}
-	
-	if (seleccionPorDefecto === seleccionMaquina) {
-		resultadoPartida = `🌀 ${iconoJugador} - ${iconoMaquina} Empate`;
-	} else if (
-		(seleccionPorDefecto === 0 && seleccionMaquina === posibilidades.length - 1) || 
-		(seleccionMaquina === seleccionPorDefecto - 1)
-	) {
-		resultadoPartida = `😀${iconoJugador} - 🤖${iconoMaquina} Gana ${nombreJugador}`;
-	} else {
-		resultadoPartida = `😀${iconoJugador} - 🤖${iconoMaquina} Gana la máquina`;
-	}
-	
-	// Mostrar el resultado en el historial
+
 	let li = document.createElement('li');
 	li.textContent = resultadoPartida;
 	idHistorial.appendChild(li);
-	
 
 	idActual.textContent = ++partidasJugadas;
 });

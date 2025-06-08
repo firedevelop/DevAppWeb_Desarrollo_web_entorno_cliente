@@ -21,6 +21,20 @@ let idActual = document.getElementById('actual');
 let idTotal = document.getElementById('total');
 let idHistorial = document.getElementById('historial');
 
+// emotis
+let iconoJugador = '';
+let iconoMaquina = '';
+switch (seleccionPorDefecto) {
+	case 0: iconoJugador = '🪨'; break; // Piedra
+	case 1: iconoJugador = '📄'; break; // Papel
+	case 2: iconoJugador = '✂️'; break; // Tijera
+}
+
+switch (seleccionMaquina) {
+	case 0: iconoMaquina = '🪨'; break; // Piedra
+	case 1: iconoMaquina = '📄'; break; // Papel
+	case 2: iconoMaquina = '✂️'; break; // Tijera
+}
 
 // MOSTRAR IMAGENES POR DEFECTO Y MARCAR LA SELECCIONADA
 imagesJugador.forEach((img, index) => { // recorre cada img junto con su índice (index 0, 1, 2)
@@ -32,9 +46,8 @@ buttonJugar.addEventListener('click', () => {
 	nombreJugador = inputNombre.value.trim(); // elimina campos en blanco
 	totalPartidas = parseInt(inputPartidas.value); // convierte numero a integer. Ejemplo 3.3 = 3
 
-//  2.1.​ Introducción de usuario con datos no válidos.
+//  Validaciones. let genera valor boolean
 	let validacionNombre = nombreJugador.length > 3 && isNaN(nombreJugador.charAt(0)); // validamos que sea >3 caracteres y que el primer caracter charAt(0) NO sea un numero
-//	2.2.​ Introducción de cantidad de partidas con datos no válidos.	
 	let validacionPartidas = !isNaN(totalPartidas) && totalPartidas > 0; 
 
 	inputNombre.classList.toggle('fondoRojo', !validacionNombre); // cambia color rojo sino valida
@@ -68,21 +81,6 @@ buttonYA.addEventListener('click', () => {
 	imageMaquina.src = `img/${posibilidades[seleccionMaquina]}Ordenador.png`;   // img/[1]Ordenador.png = img/papelOrdenador.png
 
 	let resultadoPartida = '';
-	let iconoJugador = '';
-	let iconoMaquina = '';
-	
-	switch (seleccionPorDefecto) {
-		case 0: iconoJugador = '🪨'; break; // Piedra
-		case 1: iconoJugador = '📄'; break; // Papel
-		case 2: iconoJugador = '✂️'; break; // Tijera
-	}
-	
-	switch (seleccionMaquina) {
-		case 0: iconoMaquina = '🪨'; break; // Piedra
-		case 1: iconoMaquina = '📄'; break; // Papel
-		case 2: iconoMaquina = '✂️'; break; // Tijera
-	}
-	
 	if (seleccionPorDefecto === seleccionMaquina) {
 		resultadoPartida = `🌀 ${iconoJugador} - ${iconoMaquina} Empate`;
 	} else if (
@@ -91,15 +89,13 @@ buttonYA.addEventListener('click', () => {
 	) {
 		resultadoPartida = `😀${iconoJugador} - 🤖${iconoMaquina} Gana ${nombreJugador}`;
 	} else {
-		resultadoPartida = `😀${iconoJugador} - 🤖${iconoMaquina} Gana la máquina`;
+		resultadoPartida = `🤖${iconoMaquina} - ${iconoJugador} Gana la máquina`;
 	}
 	
-	// Mostrar el resultado en el historial
+
 	let li = document.createElement('li');
 	li.textContent = resultadoPartida;
 	idHistorial.appendChild(li);
-	
-
 	idActual.textContent = ++partidasJugadas;
 });
 

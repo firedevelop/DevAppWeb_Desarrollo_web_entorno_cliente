@@ -1,10 +1,6 @@
 var listaTemas = ["_jaMrkUNPaU", "sxf821vFHLg", "tY8nZjPxN14", "i6g3S5tI8aY"];
 
 function enlaceYouTube(codigo) {
-    if (!codigo || typeof codigo !== "string") {
-        console.error("Invalid YouTube code:", codigo);
-        return "#"; // Return a fallback value if the code is invalid
-    }
     return "https://www.youtube.com/watch?v=" + codigo;
 }
 
@@ -17,45 +13,56 @@ class enlaceCancion {
     }
 
     convierteAEnlace(posicion) {
-        return `
-            <span>${this.contenido}</span>
-            <button id='btn-${posicion}' onclick="window.open('${this.enlace}', '_blank', 'noopener,noreferrer')">Go to YouTube</button>
-        `;
+        return "<a id='" + position + 
+                "' target='_blank' href='" + 
+                this.enlace + "'>" + 
+                this.contenido + "</a>";
     }
 
     get convierteAImagen() {
-        return `img/${this.contenido}.jpg`;
+        return "img/" + this.contenido + ".jpg";
     }
+    // output: <a id='0' target='_blank' href='https://www.youtube.com/watch?v=_jaMrkUNPaU'>Gato</a>
+
 }
 
 function convertirAEnlaces() {
     let listaElementos = document.getElementsByTagName("li");
     for (var i = 0; i < listaElementos.length; i++) {
-        // Ensure listaTemas has a corresponding YouTube code for each <li>
-        if (!listaTemas[i]) {
-            console.error(`No YouTube code found for list item at index ${i}`);
-            continue;
-        }
-
-        // Create an object to use its methods
-        let elementoNuevo = new enlaceCancion(listaElementos[i].innerHTML, listaTemas[i]);
-        listaElementos[i].innerHTML = elementoNuevo.convierteAEnlace(i);
-
-        // Set the image source on mouseover
-        let valorImagen = elementoNuevo.convierteAImagen;
-        listaElementos[i].addEventListener("mouseover", function () {
-            document.getElementsByTagName("img")[0].src = valorImagen;
-        }, false);
+  
+      // enlaceCancion("Gato", _jaMrkUNPaU);
+      let elementoNuevo = new enlaceCancion(listaElementos[i].innerHTML, listaTemas[i]);
+      listaElementos[i].innerHTML = elementoNuevo.convierteAEnlace(i);
+  
+      // Sacamos el valor que debe tener la imagen y hacemos que aparezca al hacer mouseover
+      let valorImagen = elementoNuevo.convierteAImagen;
+  
+      listaElementos[i].addEventListener("mouseover", 
+        function() {
+        document.getElementsByTagName("img")[0].src = valorImagen;
+      }, false); //  escucha el evento cuando llega al elemento (fase de burbuja) al final.
     }
-
-    // "Remove" the PULSAME button
+  
+    // Elimino el botón PULSAME
     document.getElementById("pulsa").innerHTML = "";
-}
-
-// Add functionality to the PULSAME button
-var botonPulsame = document.getElementById("pulsa");
-if (botonPulsame) {
+} 
+    // Añade la funcionalidad al pulsar el enlace
+    var botonPulsame = document.getElementsByTagName('a')[0];
     botonPulsame.addEventListener("click", convertirAEnlaces, false);
-} else {
-    console.error("Button with ID 'pulsa' not found.");
-}
+  
+    // Añade la funcionalidad al final de cargar toda la página
+    // window.addEventListener("load", convertirAEnlaces, false);
+
+  /*
+│
+├── index.html
+├── script.js          ← tu archivo con el código JavaScript
+└── img/               ← carpeta con las imágenes
+    ├── Gato.jpg
+    ├── Perro.jpg
+    ├── Caballo.jpg
+    └── ... (otros nombres que uses en la lista <li>)
+
+  */
+
+
