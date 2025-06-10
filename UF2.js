@@ -21,10 +21,12 @@ typeof NaN              // "number"       👈 NaN es "Not a Number", pero su ti
 typeof(Math)            // "object"       👈 Math es un objeto, no una función
 
 // COMPRACIONES ENTRE null Y undefined
-var a;
-var b = null;
+var a;          // undefined
+var b = null;   // null
 /* CASE 1: Comparación con == (igualdad débil)
     En este caso, null == undefined → true según las reglas de coerción en JavaScript. 
+    null == undefined → true
+    null === undefined → false
 */
 console.log(b == a);   // true
 
@@ -34,3 +36,4 @@ console.log(b == a);   // true
     typeof undefined → "undefined"
  */
 console.log(b === a);  // false
+
