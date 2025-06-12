@@ -12,11 +12,11 @@ console.log(x2); // -1 (no se encuentra "x")
 const x3 = mensaje.indexOf("l");
 console.log(x3); // 2 (primer "l" en "Hello")
 
-Math.abs()?
+//Math.abs()
 // Devuelve el valor absoluto de un número, es decir, sin el signo negativo.
-console.log(Math.abs(-5));  // 5
-console.log(Math.abs(10));  // 10
-console.log(Math.abs(0));   // 0
+console.log(Math.abs(-5))  // 5
+console.log(Math.abs(10))  // 10
+console.log(Math.abs(0))   // 0
 
 let a = -8;
 let b = 3;

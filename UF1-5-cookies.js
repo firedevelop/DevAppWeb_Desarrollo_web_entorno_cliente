@@ -7,7 +7,10 @@ let caducidadMs = hoy.getTime() + 1000 * 60 * 60 * 24 * 7;
 
 // Crear una nueva fecha con la fecha de caducidad
 let caducidad = new Date(caducidadMs);
-// output: Thu Nov 07 2024 12:00:00 GMT+0000 (Coordinated Universal Time) (esto varía según la fecha actual)
+// JavaScript automáticamente llama a toString() cuando imprimes un objeto Date en consola
+console.log(caducidad);             // Thu Nov 07 2024 12:00:00  // Usa implícitamente caducidad.toString()
+console.log(caducidad.toString()); // Thu Nov 07 2024 12:00:00  // Es lo mismo
+
 
 // Establecer una cookie con fecha de expiración en formato UTC
 document.cookie = `usuario=ilerna;expires=${caducidad.toUTCString()}`;
