@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+    // Obtener el sistema operativo del cliente
+    var SO = navigator.platform;
+
+    // Mostrarlo en la página principal
+    document.write("<h1>Se ha abierto con el sistema: " + SO + "</h1>");
+
+    // Crear contenido para la ventana secundaria
+    var texto = "Título nueva página";
+    var ventana = window.open("", "_blank", "width=400,height=300");
+
+    // Escribir en el documento de la ventana secundaria
+    ventana.document.write("<!DOCTYPE html>");
+    ventana.document.write("<html><head><title>Nueva Ventana</title></head><body>");
+    ventana.document.write("<h1>" + texto + "</h1>");
+    ventana.document.write("</body></html>");
+    ventana.document.close(); // Cierra el flujo de escritura para que se renderice
+  </script>
+</body>
+</html>
