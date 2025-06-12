@@ -3,9 +3,11 @@ let hoy = new Date();
 
 // Obtener los milisegundos de la fecha actual y sumar una semana (7 días)
 let caducidadMs = hoy.getTime() + 1000 * 60 * 60 * 24 * 7;
+// output: 1730966400000 (esto varía según la fecha actual)
 
 // Crear una nueva fecha con la fecha de caducidad
 let caducidad = new Date(caducidadMs);
+// output: Thu Nov 07 2024 12:00:00 GMT+0000 (Coordinated Universal Time) (esto varía según la fecha actual)
 
 // Establecer una cookie con fecha de expiración en formato UTC
 document.cookie = `usuario=ilerna;expires=${caducidad.toUTCString()}`;
