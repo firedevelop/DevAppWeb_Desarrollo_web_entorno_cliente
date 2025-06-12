@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">  <!-- Define la codificación de caracteres a UTF-8, lo que permite usar tildes, eñes, etc. -->
+    <title>Ejemplo 2</title> <!-- El título que aparece en la pestaña del navegador -->
+</head>
+<body>
+    <!-- Encabezado de nivel 3 -->
+    <h3>La fecha actual es:<span id="fecha"></span></h3>
+    <!--
+        Este <span> con id="fecha" es un marcador de posición.
+        JavaScript buscará este elemento por su 'id' para insertar la fecha actual aquí.
+    -->
+
+    <!-- Párrafo de texto -->
+    <p>Si multiplico el segundo actual (<span id="segundos"></span>) por el valor de PI, obtenemos
+    un número <span id="paridad"></span> (<span id="resultado"></span>).</p>
+    <!--
+        Aquí tenemos varios <span> que también son marcadores de posición:
+        - id="segundos": Para mostrar el segundo actual.
+        - id="paridad": Para mostrar si el resultado es "par" o "impar".
+        - id="resultado": Para mostrar el resultado de la multiplicación y redondeo.
+        JavaScript usará estos 'id' para colocar la información correspondiente.
+    -->
+
+    <!-- Enlace al archivo JavaScript -->
+    <script type="text/javascript" src="UF1-7-calculo-segundos-color.js"></script>
+    <!--
+        Esta línea es crucial. Le dice al navegador que cargue y ejecute el código
+        que se encuentra en el archivo "ejemplo2.js".
+        Se suele colocar al final del <body> para que el HTML se cargue primero,
+        y así JavaScript pueda encontrar los elementos (como los <span>) cuando intente manipularlos.
+    -->
+</body>
+</html>
